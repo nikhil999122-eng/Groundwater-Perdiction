@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AquaSense AI | Groundwater Intelligence</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- External Stylesheet -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            💧
+        </div>
+
+        Aqua<span>Sense</span>
+
+    </div>
+
+    <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#prediction">Prediction</a>
+        <a href="#risk">Risk Analysis</a>
+        <a href="#locations">Locations</a>
+    </div>
+
+    <div class="nav-status">
+
+        <div class="status-dot" id="systemStatusDot"></div>
+
+        <span id="systemStatusText">System Online</span>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="badge">
+            ✦ AI-POWERED WATER INTELLIGENCE
+        </div>
+
+        <h1>
+            Understand Water.
+            <span class="gradient-text">
+                Predict Tomorrow.
+            </span>
+        </h1>
+
+        <p>
+            A smart groundwater monitoring and prediction platform
+            designed to transform environmental data into actionable
+            insights for sustainable water management.
+        </p>
+
+        <div class="hero-actions">
+
+            <button class="btn btn-primary"
+                    onclick="document.getElementById('dashboard').scrollIntoView()">
+                Explore Dashboard →
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="openChat()">
+                Ask Aqua AI
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="water-orbit">
+
+        <div class="orbit one">
+            <div class="orbit-dot"></div>
+        </div>
+
+        <div class="orbit two"></div>
+
+        <div class="water-circle">
+            💧
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section class="section" id="dashboard">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title" id="overviewSectionTitle">
+                Groundwater Overview
+            </div>
+
+            <div class="section-subtitle" id="overviewLocationSubtitle">
+                Environmental intelligence • Select a DWLR monitoring station below
+            </div>
+
+        </div>
+
+        <div class="panel-small" id="dashboardUpdatedText">
+            Ready for query
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="card stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-label">
+                    Current Water Level
+                </div>
+
+                <div class="stat-icon">
+                    💧
+                </div>
+
+            </div>
+
+            <div class="stat-value" id="waterLevel">
+                -- m bgl
+            </div>
+
+            <div class="stat-change" id="waterLevelChange">
+                Select station to load telemetry
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-label">
+                    Rainfall
+                </div>
+
+                <div class="stat-icon">
+                    🌧️
+                </div>
+
+            </div>
+
+            <div class="stat-value" id="rainfallStat">
+                642 mm
+            </div>
+
+            <div class="stat-change" id="rainfallChange">
+                ↑ 8.4% seasonal average
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-label">
+                    Risk Level
+                </div>
+
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+            </div>
+
+            <div class="stat-value" id="riskStat">
+                Medium
+            </div>
+
+            <div class="stat-change" id="riskStatChange" style="color:var(--warning)">
+                Requires monitoring
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-label">
+                    Active Locations
+                </div>
+
+                <div class="stat-icon">
+                    📍
+                </div>
+
+            </div>
+
+            <div class="stat-value" id="activeLocationsStat">
+                8
+            </div>
+
+            <div class="stat-change" id="activeLocationsChange">
+                8 reporting normally
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHART + PREDICTION -->
+
+    <div class="dashboard-grid">
+
+        <div class="card panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <div class="panel-title" id="chartHeadingTitle">
+                        Groundwater Trend
+                    </div>
+
+                    <div class="panel-small" id="chartHeadingSubtitle">
+                        Historical monitoring data • Delhi
+                    </div>
+                </div>
+
+                <div class="panel-small" id="chartYearBadge">
+                    2026
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="groundwaterChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="card panel prediction-card"
+             id="prediction">
+
+            <div class="panel-header">
+
+                <div>
+                    <div class="panel-title">
+                        AI Prediction
+                    </div>
+
+                    <div class="panel-small">
+                        Next 30 days
+                    </div>
+                </div>
+
+                <div class="risk-badge risk-medium" id="predictionConfidenceBadge">
+                    78% confidence
+                </div>
+
+            </div>
+
+            <div class="prediction-value" id="predictionValue">
+                11.8 m
+            </div>
+
+            <div class="prediction-unit" id="predictionUnit">
+                Predicted groundwater level
+            </div>
+
+            <div class="prediction-line"></div>
+
+            <div class="prediction-details">
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Current
+                    </div>
+
+                    <div class="detail-value" id="predCurrentValue">
+                        12.4 m
+                    </div>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Expected Change
+                    </div>
+
+                    <div class="detail-value" id="predExpectedChange">
+                        −0.6 m
+                    </div>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Model
+                    </div>
+
+                    <div class="detail-value" id="predModelName">
+                        Random Forest
+                    </div>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Forecast
+                    </div>
+
+                    <div class="detail-value" id="predForecastHorizon">
+                        30 Days
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-secondary"
+                    id="runLivePredictionBtn"
+                    onclick="triggerLivePrediction()"
+                    style="margin-top:16px; width:100%; font-size:12px; padding:10px 14px; display:flex; align-items:center; justify-content:center; gap:8px; border-color:rgba(66,214,163,.3)">
+                <span>⚡</span> Run Live AI Prediction (API)
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RISK ANALYSIS
+===================================================== -->
+
+<section class="section" id="risk">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title">
+                Groundwater Risk Assessment
+            </div>
+
+            <div class="section-subtitle">
+                AI-assisted environmental risk analysis
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="risk-grid">
+
+        <div class="card risk-card">
+
+            <div class="risk-status">
+
+                <div class="risk-level" id="riskLevelName">
+                    Medium
+                </div>
+
+                <div class="risk-badge risk-medium" id="riskLevelBadge">
+                    MODERATE
+                </div>
+
+            </div>
+
+            <div class="risk-progress">
+                <span id="riskProgressBar" style="width:56%"></span>
+            </div>
+
+            <div class="risk-description" id="riskDescription">
+                Current groundwater conditions are stable,
+                but the predicted decline suggests increased
+                monitoring should be considered.
+            </div>
+
+        </div>
+
+
+        <div class="card panel">
+
+            <div class="panel-title">
+                Environmental Signals
+            </div>
+
+            <div class="recommendations" style="margin-top:15px">
+
+                <div class="recommendation">
+
+                    <div class="rec-icon">
+                        🌧️
+                    </div>
+
+                    <div>
+
+                        <div class="rec-title">
+                            Rainfall
+                        </div>
+
+                        <div class="rec-text" id="signalRainfall">
+                            Above seasonal average
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recommendation">
+
+                    <div class="rec-icon">
+                        🌡️
+                    </div>
+
+                    <div>
+
+                        <div class="rec-title">
+                            Temperature
+                        </div>
+
+                        <div class="rec-text" id="signalTemperature">
+                            29°C — moderate evaporation
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card panel">
+
+            <div class="panel-title">
+                AI Recommendation
+            </div>
+
+            <div class="risk-description" id="riskRecommendation" style="margin-top:14px">
+                Increase rainwater harvesting and reduce
+                unnecessary groundwater extraction during
+                periods of low recharge.
+            </div>
+
+            <button class="btn btn-primary"
+                    style="margin-top:18px"
+                    onclick="askAiAboutCurrentRisk()">
+
+                Ask AI for Details
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RECOMMENDATIONS
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title">
+                Sustainable Water Actions
+            </div>
+
+            <div class="section-subtitle">
+                Recommended actions based on current conditions
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="recommendations">
+
+        <div class="card recommendation">
+
+            <div class="rec-icon">
+                💧
+            </div>
+
+            <div>
+
+                <div class="rec-title">
+                    Promote Rainwater Harvesting
+                </div>
+
+                <div class="rec-text">
+                    Capture rooftop and surface runoff to
+                    improve groundwater recharge.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card recommendation">
+
+            <div class="rec-icon">
+                🌱
+            </div>
+
+            <div>
+
+                <div class="rec-title">
+                    Improve Recharge Zones
+                </div>
+
+                <div class="rec-text">
+                    Protect open soil and natural recharge
+                    areas from excessive construction.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card recommendation">
+
+            <div class="rec-icon">
+                🚿
+            </div>
+
+            <div>
+
+                <div class="rec-title">
+                    Reduce Water Wastage
+                </div>
+
+                <div class="rec-text">
+                    Identify leaks and reduce unnecessary
+                    household and agricultural water usage.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOCATIONS & DWLR TELEMETRY EXPLORER
+===================================================== -->
+
+<section class="section" id="locations">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title">
+                DWLR Telemetry Explorer
+            </div>
+
+            <div class="section-subtitle">
+                Central Ground Water Board (CGWB) • Digital Water Level Recorder Network
+            </div>
+
+        </div>
+
+        <div id="dwlrSourceBadge" class="panel-small" style="display:flex; align-items:center; gap:8px;">
+            <span class="status-dot" id="dwlrStatusDot"></span>
+            <span id="dwlrStatusText">NWDP Data Source</span>
+        </div>
+
+    </div>
+
+    <!-- Data Ingestion / Cache Status Banner -->
+    <div class="card status-banner" id="ingestionStatusBanner" style="padding:14px 20px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:rgba(16,36,31,.85); border:1px solid var(--border);">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div style="font-size:22px;">📡</div>
+            <div>
+                <div style="font-size:13px; font-weight:600; color:var(--text)" id="ingestionHeadline">
+                    Official CGWB Telemetry Database (NWDP)
+                </div>
+                <div style="font-size:11px; color:var(--muted)" id="ingestionSubline">
+                    Checking local telemetry station records...
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn btn-secondary" id="syncDataBtn" onclick="toggleIngestModal()" style="font-size:11px; padding:6px 12px; border-radius:10px;">
+                🔄 Sync / Ingest NWDP Data
+            </button>
+        </div>
+    </div>
+
+    <!-- Ingestion Modal / Key Box (collapsible) -->
+    <div id="ingestModal" class="card" style="display:none; padding:18px; margin-bottom:20px; border-color:rgba(66,214,163,.3); background:rgba(11,28,24,.95);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-weight:600; font-size:14px; color:var(--primary);">Download Real CGWB CSV Data from NWDP</div>
+            <button onclick="toggleIngestModal()" style="background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer;">✕</button>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.5;">
+            This connects to the National Water Data Portal (NWDP CKAN API) to download official DWLR hourly/quadridaily telemetry datasets for Indian states (Delhi, Maharashtra, Punjab, etc.) and indexes them into SQLite.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <input type="password" id="ingestKeyInput" placeholder="Enter Ingest Key (default: aquasense2024)" style="flex:1; min-width:200px; padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:rgba(0,0,0,.25); color:var(--text); font-size:12px;">
+            <button class="btn btn-primary" id="startIngestBtn" onclick="triggerIngestion()" style="font-size:12px; padding:8px 16px;">
+                Start Ingestion
+            </button>
+        </div>
+        <div id="ingestLog" style="font-size:11px; margin-top:10px; color:var(--secondary); display:none;"></div>
+    </div>
+
+    <!-- Search Panel (State -> District -> Station) -->
+    <div class="card location-search-panel" style="padding:24px; margin-bottom:24px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:16px; color:var(--text); display:flex; align-items:center; gap:8px;">
+            <span>🔍</span> Select Monitoring Station (India DWLR Network)
+        </div>
+        <div class="search-controls-grid">
+            <!-- 1. State Selector -->
+            <div class="form-group">
+                <label for="stateSelect" class="search-label">1. Select State / UT</label>
+                <select id="stateSelect" class="search-select" onchange="onStateChanged()">
+                    <option value="">-- Choose State / UT --</option>
+                </select>
+            </div>
+
+            <!-- 2. District Selector -->
+            <div class="form-group">
+                <label for="districtSelect" class="search-label">2. Select District</label>
+                <select id="districtSelect" class="search-select" onchange="onDistrictChanged()" disabled>
+                    <option value="">-- First Select State --</option>
+                </select>
+            </div>
+
+            <!-- 3. Station Selector -->
+            <div class="form-group">
+                <label for="stationSelect" class="search-label">3. Select DWLR Station</label>
+                <select id="stationSelect" class="search-select" onchange="onStationChanged()" disabled>
+                    <option value="">-- First Select District --</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px; flex-wrap:wrap; gap:12px;">
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" id="viewStationBtn" onclick="viewSelectedStation()" disabled style="font-size:13px; padding:10px 20px;">
+                    📊 View Groundwater Telemetry
+                </button>
+                <button class="btn btn-secondary" onclick="resetLocationSearch()" style="font-size:13px; padding:10px 18px;">
+                    ↺ Reset
+                </button>
+            </div>
+            <div id="stationCountInfo" style="font-size:12px; color:var(--muted)"></div>
+        </div>
+    </div>
+
+    <!-- Welcome / Instructions Card (shown when no station is selected) -->
+    <div class="card location-welcome-card" id="locationWelcomeCard" style="padding:40px 24px; text-align:center;">
+        <div style="font-size:42px; margin-bottom:14px;">🌊</div>
+        <div style="font-size:18px; font-weight:700; color:var(--text); margin-bottom:8px;">
+            Real CGWB Digital Water Level Recorder (DWLR) Observations
+        </div>
+        <p style="font-size:13px; color:var(--muted); max-width:680px; margin:0 auto 20px; line-height:1.6;">
+            Select any Indian State and District above to inspect authentic groundwater telemetry collected by the Central Ground Water Board (CGWB) and published through the National Water Data Portal (NWDP).
+        </p>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:12px; color:var(--muted);">
+            <div style="background:rgba(255,255,255,.03); padding:8px 14px; border-radius:20px; border:1px solid var(--border);">
+                ✅ Depth Below Ground Level (m bgl)
+            </div>
+            <div style="background:rgba(255,255,255,.03); padding:8px 14px; border-radius:20px; border:1px solid var(--border);">
+                ✅ Authentic Government Telemetry
+            </div>
+            <div style="background:rgba(255,255,255,.03); padding:8px 14px; border-radius:20px; border:1px solid var(--border);">
+                ✅ Full CSV Export & AI Forecasts
+            </div>
+        </div>
+    </div>
+
+    <!-- Station Detail Section (hidden initially, populated on station selection) -->
+    <div id="stationDetailSection" style="display:none;">
+        <!-- Station Metadata Summary Card -->
+        <div class="card station-summary-card" style="padding:24px; margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:18px;">
+                <div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+                        <span class="badge" style="margin:0; font-size:11px;" id="stationAgencyBadge">CGWB DWLR</span>
+                        <span class="badge" style="margin:0; font-size:11px; background:rgba(101,184,255,.1); color:var(--secondary); border-color:rgba(101,184,255,.2)" id="stationStateBadge">State</span>
+                    </div>
+                    <div style="font-size:22px; font-weight:700; color:var(--text); font-family:'Space Grotesk';" id="stationDetailName">
+                        Station Name
+                    </div>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;" id="stationDetailLocationPath">
+                        District • Tehsil • Block
+                    </div>
+                </div>
+
+                <div style="text-align:right;">
+                    <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px;">Latest Water Level</div>
+                    <div style="font-size:32px; font-weight:700; color:var(--primary); font-family:'Space Grotesk';" id="stationDetailLevel">
+                        -- m bgl
+                    </div>
+                    <div style="font-size:11px; color:var(--muted)" id="stationDetailDate">
+                        Date: --
+                    </div>
+                </div>
+            </div>
+
+            <div class="station-meta-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; padding:16px; background:rgba(0,0,0,.2); border-radius:14px; border:1px solid var(--border);">
+                <div>
+                    <div style="font-size:11px; color:var(--muted);">Coordinates</div>
+                    <div style="font-size:13px; color:var(--text); font-weight:600;" id="stationCoordinates">--</div>
+                </div>
+                <div>
+                    <div style="font-size:11px; color:var(--muted);">Tehsil / Block</div>
+                    <div style="font-size:13px; color:var(--text); font-weight:600;" id="stationTehsilBlock">--</div>
+                </div>
+                <div>
+                    <div style="font-size:11px; color:var(--muted);">Basin / River</div>
+                    <div style="font-size:13px; color:var(--text); font-weight:600;" id="stationBasin">--</div>
+                </div>
+                <div>
+                    <div style="font-size:11px; color:var(--muted);">Elevation (RL_MSL)</div>
+                    <div style="font-size:13px; color:var(--text); font-weight:600;" id="stationElevation">--</div>
+                </div>
+            </div>
+
+            <div style="margin-top:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div style="font-size:11px; color:var(--muted);">
+                    ℹ️ <strong>m bgl:</strong> Meters below ground level. Greater numbers indicate deeper, more depleted water levels.
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-secondary" id="exportCsvBtn" onclick="exportCurrentStationCSV()" style="font-size:12px; padding:8px 14px;">
+                        📥 Download Station CSV
+                    </button>
+                    <button class="btn btn-primary" onclick="scrollUpToDashboard()" style="font-size:12px; padding:8px 14px;">
+                        📈 View in Overview Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Telemetry Observations Table Card -->
+        <div class="card" style="padding:24px; margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+                <div>
+                    <div style="font-size:16px; font-weight:700; color:var(--text); font-family:'Space Grotesk';">
+                        Recorded Telemetry Observations (CGWB DWLR)
+                    </div>
+                    <div style="font-size:12px; color:var(--muted);" id="tableSubtitle">
+                        Historical readings sorted by acquisition timestamp
+                    </div>
+                </div>
+                <span class="badge" id="recordsCountBadge" style="margin:0;">0 records</span>
+            </div>
+
+            <div class="table-container" style="overflow-x:auto; max-height:420px; overflow-y:auto; border-radius:12px; border:1px solid var(--border);">
+                <table class="obs-table" id="observationsTable" style="width:100%; border-collapse:collapse; font-size:12px;">
+                    <thead>
+                        <tr style="background:rgba(16,36,31,.95); position:sticky; top:0; z-index:2; text-align:left; color:var(--muted); border-bottom:1px solid var(--border);">
+                            <th style="padding:12px 14px;">#</th>
+                            <th style="padding:12px 14px;">Timestamp</th>
+                            <th style="padding:12px 14px;">Water Level (m bgl)</th>
+                            <th style="padding:12px 14px;">Agency</th>
+                            <th style="padding:12px 14px;">Source Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="observationsTableBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top:12px; font-size:11px; color:var(--muted); text-align:right;">
+                Source: National Water Data Portal (NWDP) • Central Ground Water Board Telemetry
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    AquaSense AI • Groundwater Monitoring & Prediction System
+
+    <br><br>
+
+    BTech Mini Project • AI for Sustainable Water Management
+
+</footer>
+
+
+<!-- =====================================================
+     AI ASSISTANT BUTTON
+===================================================== -->
+
+<button class="ai-button"
+        onclick="toggleChat()"
+        aria-label="Open AI assistant">
+
+    <div class="ai-ping"></div>
+
+    🤖
+
+</button>
+
+
+<!-- =====================================================
+     AI CHAT WINDOW
+===================================================== -->
+
+<div class="chat-window" id="chatWindow">
+
+    <div class="chat-header">
+
+        <div class="ai-profile">
+
+            <div class="ai-avatar">
+                🤖
+            </div>
+
+            <div>
+
+                <div class="ai-name">
+                    Aqua AI
+                </div>
+
+                <div class="ai-online" id="aiStatus">
+                    ● Groundwater Assistant
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+            <button class="chat-reset-btn"
+                    onclick="clearChatHistory()"
+                    title="Reset conversation history"
+                    style="background:none; border:none; color:var(--muted); font-size:14px; cursor:pointer; padding:4px 6px; border-radius:6px;"
+                    onmouseover="this.style.color='var(--primary)'"
+                    onmouseout="this.style.color='var(--muted)'">
+                ↺
+            </button>
+            <button class="chat-close"
+                    onclick="toggleChat()">
+                ×
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="chat-messages"
+         id="chatMessages">
+
+        <div class="message bot-message">
+
+            👋 Hi! I'm <strong>Aqua AI</strong>, your groundwater hydrologist assistant.
+
+            <br><br>
+
+            Powered by <strong>Gemini Generative AI</strong> and grounded in authentic <strong>CGWB DWLR</strong> telemetry data.
+
+            <br><br>
+
+            You can ask me any question about groundwater conservation, recharge structures, Indian state telemetry, risk analysis, or our ML predictions! 🌊
+
+        </div>
+
+    </div>
+
+
+    <div class="quick-questions">
+
+        <button class="quick-question"
+                onclick="askQuick('What is groundwater?')">
+            What is groundwater?
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('How can I conserve groundwater at home?')">
+            Conservation at home
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('Why is groundwater declining in Haryana?')">
+            Haryana depletion causes
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('Explain the groundwater situation in Ahmedabad.')">
+            Ahmedabad situation
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('What can farmers do to recharge groundwater?')">
+            Farmer recharge methods
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('Why is the risk undefined for my selected station?')">
+            Why is risk undefined?
+        </button>
+
+        <button class="quick-question"
+                onclick="askQuick('What does m bgl depth mean in groundwater measurement?')">
+            What does m bgl mean?
+        </button>
+
+    </div>
+
+
+    <div class="chat-input">
+
+        <input
+            id="chatInput"
+            type="text"
+            placeholder="Ask about groundwater..."
+            onkeydown="handleEnter(event)"
+        >
+
+        <button class="send-btn"
+                onclick="sendMessage()">
+            ↑
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     AI PREDICTION LOADING POPUP
+===================================================== -->
+
+<div class="pred-popup-overlay" id="predPopupOverlay" role="dialog" aria-modal="true" aria-labelledby="predPopupTitle" tabindex="-1">
+
+    <div class="pred-popup" id="predPopup">
+
+        <!-- Close button -->
+        <button class="pred-popup-close" id="predPopupClose" onclick="closePredPopup(false)" aria-label="Close prediction popup">&times;</button>
+
+        <!-- Water droplet decorations -->
+        <div class="pred-droplets" aria-hidden="true">
+            <div class="pred-droplet pred-droplet-1"></div>
+            <div class="pred-droplet pred-droplet-2"></div>
+            <div class="pred-droplet pred-droplet-3"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="pred-popup-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+        </div>
+        <h2 class="pred-popup-title" id="predPopupTitle">AI Groundwater Prediction</h2>
+
+        <!-- Progress ring container (shown during loading) -->
+        <div class="pred-progress-container" id="predProgressContainer">
+            <svg class="pred-ring" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                    <linearGradient id="predGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#42d6a3"/>
+                        <stop offset="50%" style="stop-color:#65b8ff"/>
+                        <stop offset="100%" style="stop-color:#42d6a3"/>
+                    </linearGradient>
+                </defs>
+                <circle class="pred-ring-bg" cx="100" cy="100" r="85"/>
+                <circle class="pred-ring-progress" id="predRingProgress" cx="100" cy="100" r="85"/>
+                <!-- Glow dot at the end of the progress arc -->
+                <circle class="pred-ring-dot" id="predRingDot" cx="100" cy="15" r="5" fill="url(#predGrad)"/>
+            </svg>
+            <div class="pred-percent" id="predPercent" aria-live="polite">0%</div>
+        </div>
+
+        <!-- Status message -->
+        <div class="pred-status" id="predStatus" aria-live="polite">Initializing prediction engine...</div>
+
+        <!-- AI pulse indicator -->
+        <div class="pred-ai-pulse" id="predAiPulse" aria-hidden="true">
+            <span class="pred-pulse-dot"></span>
+            <span class="pred-pulse-label">AI Model Active</span>
+        </div>
+
+        <!-- Results container (hidden until prediction completes) -->
+        <div class="pred-results" id="predResults" style="display:none;">
+
+            <div class="pred-results-header">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>Prediction Complete</span>
+            </div>
+
+            <div class="pred-results-grid" id="predResultsGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <div class="pred-results-note" id="predResultsNote"></div>
+
+            <div class="pred-results-actions">
+                <button class="pred-btn pred-btn-primary" id="predViewResultsBtn" onclick="closePredPopup(true)">
+                    View in Dashboard
+                </button>
+                <button class="pred-btn pred-btn-secondary" onclick="closePredPopup(false)">
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <!-- Error container (hidden unless error) -->
+        <div class="pred-error" id="predError" style="display:none;">
+            <div class="pred-error-icon">⚠️</div>
+            <div class="pred-error-title" id="predErrorTitle">Prediction Failed</div>
+            <div class="pred-error-message" id="predErrorMessage">An unexpected error occurred.</div>
+            <div class="pred-error-actions">
+                <button class="pred-btn pred-btn-primary" id="predRetryBtn" onclick="retryPrediction()">
+                    Try Again
+                </button>
+                <button class="pred-btn pred-btn-secondary" onclick="closePredPopup(false)">
+                    Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- JavaScript Logic -->
+<script src="script.js"></script>
+
+</body>
+</html>
