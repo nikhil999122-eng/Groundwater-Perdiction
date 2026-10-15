@@ -1,0 +1,17 @@
+{
+    "model_name": "Random Forest Regressor",
+    "mae": 0.7186,
+    "rmse": 0.9261,
+    "r2_score": 0.9711,
+    "baseline_lr_mae": 0.6345,
+    "baseline_lr_r2": 0.9731,
+    "features": [
+        "water_level",
+        "rainfall",
+        "temperature",
+        "humidity",
+        "extraction_rate",
+        "recharge_rate"
+    ],
+    "sample_count": 264
+}
