@@ -1,0 +1,5 @@
+SlNo,Station,Agency,State LGD Code,State,District LGD Code,District,Tehsil,Block,Village,River,Basin,Tributary,Subtributary,SubSubtributary,Local River,Latitude,Longitude,RL_MSL,Data Acquisition Time,Groundwater Level Telemetry Quadridaily (meter)
+1,Haryana BHIWANI SIWANI Pataudi Khurd,CGWB,6,Haryana,59,BHIWANI,SIWANI,-,-,-,-,-,-,-,-,28.79167600,75.80967000,,30-11-1999 00:00,0
+2,Haryana KAITHAL Kalayat Jajanpur-Pz-M,CGWB,6,Haryana,66,KAITHAL,-,-,-,-,-,-,-,-,-,29.90557000,76.60706700,,30-11-1999 00:00,0
+3,KaulapurPz,CGWB,6,Haryana,68,KURUKSHETRA,-,-,-,-,-,-,-,-,-,30.02730300,76.91321600,,01-01-2000 01:00,3.81
+4,KaulapurPz,CGWB,6,Haryana,68,KURUKSHETRA,-,-,-,-,-,-,-,-,-,30.02730300,76.91321600,,01-01-2000 02:00,3.81
